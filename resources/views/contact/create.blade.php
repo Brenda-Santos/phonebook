@@ -1,0 +1,64 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Contato</div>
+                <form action="{{ url('contacts') }}" method="post" enctype="multipart/form-data">
+                    <div class="card-body">
+                        {{ csrf_field() }}
+
+                        <div class="form-group">
+                            <label for="salutation">Saudação</label>
+                            <select id="salutation" name="salutation" class="form-control">
+                                <option value="">Selecione...</option>
+                                <option value="Sr."{{ old('salutation') == 'Sr.' ? ' selected' : ''}}>Sr.</option>
+                                <option value="Sra."{{ old('salutation') == 'Sra.' ? ' selected' : ''}}>Sra.</option>
+                                <option value="Srta."{{ old('salutation') == 'Srta.' ? ' selected' : ''}}>Srta.</option>
+                            </select>
+                            <div class="invalid-feedback">{{ $errors->first('salutation') }}</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Nome completo</label>
+                            <input type="text" required class="form-control{{$errors->has('name') ? ' is-invalid':''}}" value="{{ old('name') }}" id="name" name="name">
+                            <div class="invalid-feedback">{{ $errors->first('name') }}</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="number">Telefone</label>
+                            <input type="text" required class="form-control{{$errors->has('number') ? ' is-invalid':''}}" value="{{ old('telefone') }}" id="number" name="number">
+                            <div class="invalid-feedback">{{ $errors->first('number') }}</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" class="form-control{{$errors->has('email') ? ' is-invalid':''}}" value="{{ old('email') }}" id="email" name="email" placeholder="email@provedor.com.br">
+                            <div class="invalid-feedback">{{ $errors->first('email') }}</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="birth">D. Nascimento</label>
+                            <input type="text" class="form-control{{$errors->has('birth') ? ' is-invalid':''}}" id="birth" value="{{ old('birth') }}" name="birth" placeholder="00/00/0000">
+                            <div class="invalid-feedback">{{ $errors->first('birth') }}</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="avatar">Avatar</label>
+                            <input type="file" class="form-control-file{{$errors->has('avatar') ? ' is-invalid':''}}" id="avatar" name="avatar" accept=".jpg, .jpeg, .png .gif">
+                            <div class="invalid-feedback" style="display:inherit">{{ $errors->first('avatar') }}</div>
+                            <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file -->
+                        </div>
+                        <div class="form-group">
+                            <label for="note">Nota</label>
+                            <textarea class="form-control" id="note" name="note" rows="5">{{ old('note') }}</textarea>
+                        </div>
+                    </div>
+                    <div class="card-footer text-right">
+                        <a href="#" onclick="history.back()" class="btn btn-secondary">Voltar</a>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection
